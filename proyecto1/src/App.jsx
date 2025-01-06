@@ -1,14 +1,46 @@
 import './App.css'
 import './Navbar.css'
+import {BrowserRouter, Routes, Route} from  "react-router-dom"
 
 import Navbar from './components/Navbar'
-import ItemListContainer from './components/ItemListContainer'
+import Home from './components/Home'
+import ProductosCubiertos from './components/ProductosCubiertos'
+import ProductosPlatosVasos from './components/ProductosPlatosVasos'
+import Error from './components/Error'
+import DetalleProducto from './components/DetalleProducto'
 function App() {
-  const links = ['Inicio', 'Cubiertos', 'Platos y Vasos'];
+  
   return (
   <>
-    <Navbar links={links}/>
-    <ItemListContainer />
+
+    <BrowserRouter>
+      <Routes>
+
+        <Route path='/' element={<Navbar/>}>
+        {/*<Route index element={<ItemListContainer2/>}/>
+         <Route path='inicio' element={<Home/>}/>
+
+
+          <Route path='cubiertos/:id' element={<detalleProducto/>}/>
+        */}
+          <Route index element={<Home/>}/>        
+          <Route path='productos/cubiertos' element={<ProductosCubiertos/>}/>
+          <Route path='productos/:categoria/:id' element={<DetalleProducto/>}/>
+
+
+          <Route path='productos/platos_vasos' element={<ProductosPlatosVasos/>}/>
+
+
+          <Route path='*' element={<Error/>}/>
+
+                    
+
+        </Route>
+
+      </Routes>
+    </BrowserRouter>
+
+
   </>
   );
 }

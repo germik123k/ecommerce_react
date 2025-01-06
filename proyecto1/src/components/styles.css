@@ -1,0 +1,33 @@
+#container {
+    margin-top: 80px;
+    display:flex;
+    gap: 15px;
+    flex-wrap:wrap;
+}
+
+.card{
+    height: 170px;
+    width: 150px;
+    background-color: rgb(236, 211, 250);
+    color: rgb(66, 9, 96);
+    border-radius: 15px;
+    text-align:center;
+}
+.imagen1{
+    height: '60px';
+    width: '60px';
+}
+.contenedor1 {
+    width: '100%'; 
+    background-color: '#0ff8e1'; 
+    height: 'calc(100vh - 3rem)'; 
+    position: 'fixed'; 
+    top:'80px';
+    left:'0px';
+    padding: '1rem';
+    display: 'flex';
+    justify-content: 'space-between';
+    align-items: 'center';
+    box-sizing: 'border-box';    
+    }
+

@@ -2,20 +2,29 @@
 import React from 'react';
 import '../Navbar.css'
 import CartWidget from './CartWidget'; // Importa el componente CartWidget
+import { Link, Outlet} from 'react-router-dom';
 
-const Navbar = ({ links }) => {
+const Navbar = () => {
+    const links = ['Inicio', 'cubiertos', 'platos_vasos'];
+
     return (
+        <>
         <nav style={styles.navbar}>
             <div style={styles.leftSection}>
-                <img src="logo.png" alt="Logo" style={styles.logo} /> 
+                <img src="../../logo.png" alt="Logo" style={styles.logo} /> 
                 <div style={styles.links}>
-                    {links.map((link, index) => (
-                        <a  key={index} style={styles.link} className="nav-link" href="#">{link}</a>
-                    ))}
+                        <Link  style={styles.link} className="nav-link"  to={'/'}>Inicio</Link>
+                        <Link  style={styles.link} className="nav-link"  to={'productos/cubiertos'}>cubiertos</Link>
+                        <Link  style={styles.link} className="nav-link"  to={'productos/platos_vasos'}>Platos y Vasos</Link>
                         </div>
             </div>
             <CartWidget /> 
+            
         </nav>
+        <Outlet/>
+
+        </>
+
     );
 }
 
