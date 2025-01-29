@@ -11,7 +11,7 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAcAYZ1JYGs5yqX3MdOF4qFDataBLwn3yw",
+  apiKey: import.meta.env.VITE_APIKEY,
   authDomain: "tienda-65655.firebaseapp.com",
   projectId: "tienda-65655",
   storageBucket: "tienda-65655.firebasestorage.app",
