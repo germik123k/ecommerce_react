@@ -1,27 +1,24 @@
-
-// src/components/ProductosPlatosVasos.jsx
 import React from 'react';
+import { collection, getDocs, getFirestore, snapshotEqual } from 'firebase/firestore';
 import { useEffect,useState } from "react";
-
-import ProductosPlatosVasosData from "./productos_platos_vasos"
 import Producto from './Producto';
 import "./styles.css"
+
+
 const ProductosPlatosVasos = () => {
     const [items,setItems]=useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProductos = new Promise((resolve) => {
-          setTimeout(() => {
-              resolve(ProductosPlatosVasosData)
-          },2000)
-        })
-  
-        fetchProductos.then((data) => {
-          setItems(data);
-          setLoading(false);
-        })
-      },[]);
+    useEffect(()=>{
+      const db = getFirestore();
+      const itemsCubiertos = collection(db,"cubiertos");
+      getDocs(itemsCubiertos).then(snapshot => {
+        setItems(snapshot.docs);
+        setLoading(false);
+
+
+      });
+    },[]);
 
     return (
 

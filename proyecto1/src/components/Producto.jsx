@@ -2,12 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Producto = ({nombre, precio, id, categoria, imagen}) => {
+const Producto = ({id, nombre, precio, categoria, imagen}) => {
     return (
         <Link to={`/productos/${categoria}/${id}`} className='card'>
             <img src={`../../${imagen}`} alt="" style={styles.imagen1}/> 
             <p>{nombre}</p>
-            <h4>{precio}</h4>
+            <h4>${precio}</h4>
 
         </Link>
     );

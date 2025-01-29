@@ -1,5 +1,9 @@
 import './App.css'
 import './Navbar.css'
+
+import { useState } from 'react'
+import { useEffect } from 'react'
+import {getFirestore, doc, getDoc} from "firebase/firestore"
 import {BrowserRouter, Routes, Route} from  "react-router-dom"
 
 import Navbar from './components/Navbar'
@@ -9,7 +13,24 @@ import ProductosPlatosVasos from './components/ProductosPlatosVasos'
 import Error from './components/Error'
 import DetalleProducto from './components/DetalleProducto'
 function App() {
-  
+/*  
+  const [dataTest, setData] = useState({});
+
+  const db = getFirestore();
+
+  useEffect(() => {
+    const itemRef = doc(db, "cubiertos", "xm2zFdsQZk3I8QHTIxDo")
+
+    getDoc(itemRef).then(snapshot=>{
+
+      console.log(snapshot);
+      console.log(snapshot.data());
+      setData(snapshot.data());
+
+    })
+
+  },[])
+*/
   return (
   <>
 

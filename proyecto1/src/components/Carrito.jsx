@@ -1,11 +1,13 @@
 // src/components/ItemListContainer.jsx
 import React from 'react';
 
-const Home = () => {
+const Carrito = () => {
     return (
-        <div style={styles.container}> Home, Bienvenidos a productos de vagilla para su hogar, cubiertos, platos y vasos.</div>
+        <div style={styles.container}> Carrito</div>
     );
 }
+
+
 
 
 
@@ -28,4 +30,4 @@ const styles = {
         }
 };
 
-export default Home;
+export default Carrito;
