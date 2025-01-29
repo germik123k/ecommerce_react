@@ -1,10 +1,13 @@
 // src/components/CartWidget.jsx
 import '../Navbar.css'
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importa el componente Link
 
 const CartWidget = () => {
     return (
-        <i className="fa fa-shopping-cart" title="Carrito de compras" style={styles.cartIcon}></i>
+        <Link to="/carrito">
+            <i className="fa fa-shopping-cart" title="Carrito de compras" style={styles.cartIcon}></i>
+        </Link>
     );
 }
 

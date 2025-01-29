@@ -1,31 +1,69 @@
 // src/components/ItemListContainer.jsx
 import React from 'react';
+import { collection, addDoc, deleteDoc, getDocs, getFirestore } from 'firebase/firestore';
+import productosPlatosVasosData from './productos_platos_vasos'; // Importa los datos del producto
 
 const Home = () => {
+    const db = getFirestore(); // Conexión a Firestore
+
+    const addProductsToFirestore = async () => {
+        const collectionRef = collection(db, 'platos_vasos'); // Referencia a la colección
+        try {
+            for (const producto of productosPlatosVasosData) {
+                await addDoc(collectionRef, producto); // Agrega cada producto a la colección
+            }
+            console.log('Datos agregados exitosamente');
+        } catch (e) {
+            console.error('Error al agregar productos: ', e);
+        }
+    };
+
+    const clearCollection = async () => {
+        const collectionRef = collection(db, 'platos_vasos');
+        const snapshot = await getDocs(collectionRef);
+        try {
+            for (const docu of snapshot.docs) {
+                await deleteDoc(docu.ref);
+            }
+            console.log('Colección vaciada exitosamente');
+        } catch (e) {
+            console.error('Error al vaciar la colección: ', e);
+        }
+    };
+
     return (
-        <div style={styles.container}> Home, Bienvenidos a productos de vagilla para su hogar, cubiertos, platos y vasos.</div>
+        <div style={styles.container}>
+            <div>Home, Bienvenidos a productos de vagilla para su hogar, cubiertos, platos y vasos.</div>
+            {/*<button onClick={addProductsToFirestore} style={styles.button}>Agregar datos a Firestore</button>
+            <button onClick={clearCollection} style={styles.button}>Eliminar todos los datos</button>*/}
+        </div>
     );
 }
 
-
-
-
-
 const styles = {
     container: {
-        width: '100%', // Asegura que el contenedor abarque el 100% del ancho
-        backgroundColor: '#ffffff', // Color casi blanco, ligeramente amarillento para chequear cuanto ocupa
-        height: 'calc(100vh - 3rem)', // Calcula la altura restante teniendo en cuenta el tamaño del navbar
-        //marginTop: '3rem', // Compensa el espacio del navbar
-        position: 'fixed', // Mantiene el navbar fijo en la parte superior
-        top:'80px',
-        left:'0px',
+        width: '100%',
+        backgroundColor: '#ffffff',
+        height: 'calc(100vh - 3rem)',
+        position: 'fixed',
+        top: '80px',
+        left: '0px',
         padding: '1rem',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        boxSizing: 'border-box' // Asegura que el padding se incluya dentro del ancho y alto del elemento    
-        }
+        boxSizing: 'border-box'
+    },
+    button: {
+        marginTop: '20px',
+        padding: '10px 20px',
+        backgroundColor: '#007BFF',
+        color: 'white',
+        borderRadius: '5px',
+        border: 'none',
+        cursor: 'pointer',
+    }
 };
 
 export default Home;

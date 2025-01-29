@@ -37,6 +37,7 @@ const styles = {
         position: 'fixed', // Mantiene el navbar fijo en la parte superior
         top: 0,
         left: 0,
+        marginBottom: "40px",
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
