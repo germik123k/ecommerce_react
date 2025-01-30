@@ -37,9 +37,12 @@ const CartProvider = ({ children }) => {
             return updatedItems;
         });
     };
-
+    const clearCart = () => {
+        setCartItems([]);
+        console.log("Carrito vaciado");
+    };
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart}}>
             {children}
         </CartContext.Provider>
     );

@@ -1,12 +1,26 @@
-// src/components/Carrito.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext'; // Importa el contexto
 
 const Carrito = () => {
-    const { cartItems, removeFromCart } = useContext(CartContext); // Usa el contexto
+    const { cartItems, removeFromCart, clearCart } = useContext(CartContext); // Usa el contexto
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [email, setEmail] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [mensaje, setMensaje] = useState('');
 
     const total = cartItems.reduce((acc, item) => acc + item.precio * item.cantidad, 0); // Calcula el total
+
+    const handlePurchase = () => {
+        if (nombre && apellido && email) {
+            clearCart();
+            setMensaje('La transacción se realizó exitosamente!');
+            // Aquí puedes agregar la lógica para procesar la compra
+        } else {
+            setMensaje('Falta completar datos para la transacción');
+        }
+    };
 
     return (
         <div style={styles.container}>
@@ -42,8 +56,86 @@ const Carrito = () => {
                 </tbody>
             </table>
             <div style={styles.total}>
-                <button style={styles.comprarButton}>Efectuar compra</button>
+                {cartItems.length > 0 && (
+                    <button onClick={clearCart} style={styles.vaciarButton}>Vaciar carrito</button>
+                )}
                 <h2>Total: ${total.toFixed(2)}</h2>
+            </div>
+            <div style={styles.checkoutContainer}>
+
+ 
+            {cartItems.length > 0 ? (
+                <>
+                {mensaje && (
+                    <div style={mensaje.includes('exitosamente') ? styles.successMessage : styles.errorMessage}>
+                        {mensaje}
+                    </div>
+                )}
+                <form style={styles.form}>
+                    <div style={styles.row}>
+                        <div style={styles.formGroup}>
+                            <label htmlFor="nombre">Nombre:</label>
+                            <input
+                                type="text"
+                                id="nombre"
+                                value={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                                style={styles.input}
+                            />
+                        </div>
+                        <div style={styles.formGroup}>
+                            <label htmlFor="apellido">Apellido:</label>
+                            <input
+                                type="text"
+                                id="apellido"
+                                value={apellido}
+                                onChange={(e) => setApellido(e.target.value)}
+                                style={styles.input}
+                            />
+                        </div>
+                    </div>
+                    <div style={styles.row}>
+                        <div style={styles.formGroup}>
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                style={styles.input}
+                            />
+                        </div>
+                        <div style={styles.formGroup}>
+                            <label htmlFor="telefono">Teléfono:</label>
+                            <input
+                                type="tel"
+                                id="telefono"
+                                value={telefono}
+                                onChange={(e) => setTelefono(e.target.value)}
+                                style={styles.input}
+                            />
+                        </div>
+                    </div>
+                    <button type="button" onClick={handlePurchase} style={styles.comprarButton}>Efectuar compra</button>
+                </form>
+                </>
+            ) : (
+                <>
+
+                {mensaje ? (
+                    <div style={mensaje.includes('exitosamente') ? styles.successMessage : styles.errorMessage}>
+                        {mensaje}
+                    </div>
+                ) : (
+                    <div style={styles.messageContainer}>
+                        <p style={{ color: 'black', fontWeight: 'bold' }}>No posee productos en el carrito</p>
+                    </div>
+                )}
+
+                 </>
+            )}
+
+
             </div>
         </div>
     );
@@ -90,13 +182,78 @@ const styles = {
         borderTop: '1px solid #ccc',
         marginTop: '2rem'
     },
+    vaciarButton: {
+        padding: '10px 20px',
+        backgroundColor: '#dc3545',
+        color: 'white',
+        borderRadius: '5px',
+        border: 'none',
+        cursor: 'pointer'
+    },
     comprarButton: {
         padding: '10px 20px',
         backgroundColor: '#28a745',
         color: 'white',
         borderRadius: '5px',
         border: 'none',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginTop: '1rem',
+        maxWidth: '230px', // Ajuste de ancho máximo para el botón
+    },
+    checkoutContainer: {
+        width: '100%',
+        marginTop: '2rem',
+        padding: '1rem',
+        borderTop: '1px solid #ccc',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+    },
+    form: {
+        width: '100%',
+        maxWidth: '600px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center' // Centrado del contenido del formulario
+    },
+    row: {
+        display: 'flex',
+        width: '100%',
+        justifyContent: 'space-between', // Separación horizontal de los elementos
+        marginBottom: '1rem'
+    },
+    formGroup: {
+        flex: '0 0 48%' // Ancho de cada elemento del formulario en 48% para espacio entre ellos
+    },
+    input: {
+        width: '100%',
+        padding: '0.5rem',
+        borderRadius: '5px',
+        border: '1px solid #ccc'
+    },
+    successMessage: {
+        backgroundColor:'#d0ffd0',
+        width: '100%',
+        color: 'green',
+        fontWeight: 'bold',
+        marginTop: '1rem',
+        border: '2px solid green',
+        textAlign: 'center'
+    },
+    errorMessage: {
+        backgroundColor:'#ffd0d0',
+        width: '100%',
+        color: 'red',
+        fontWeight: 'bold',
+        marginTop: '1rem',
+        border: '2px solid red',
+        textAlign: 'center'
+    },
+    messageContainer: {
+        width: '100%',
+        border: '2px solid black',
+        padding: '1rem',
+        textAlign: 'center'
     }
 };
 
